@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { getTasks, createTask, deleteTask } from "../api/api";
 import TaskForm from "../components/TaskForm";
-
+import { useNavigate } from "react-router-dom";
 function Dashboard() {
-
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const [tasks, setTasks] = useState([]);
 
@@ -31,8 +31,8 @@ function Dashboard() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/";
+      localStorage.removeItem("token");
+      navigate("/");
   };
 
   return (

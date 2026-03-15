@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { loginUser, registerUser } from "../api/api";
+import { useNavigate } from "react-router-dom";
+
 
 function Auth() {
+const navigate = useNavigate();
 
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -33,7 +36,7 @@ function Auth() {
         });
 
         localStorage.setItem("token", res.data.access_token);
-        window.location.href = "/dashboard";
+        navigate("/dashboard");
 
       } else {
 
