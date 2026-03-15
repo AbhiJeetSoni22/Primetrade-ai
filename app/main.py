@@ -10,17 +10,16 @@ app = FastAPI(
 
 origins = [
     "http://localhost:5173",
-    "https://primetrade-ai-zeta.vercel.app/"
+    "https://primetrade-ai-zeta.vercel.app"
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origin_regex="https://.*vercel.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 app.include_router(auth_router)
 app.include_router(task_router)
 
