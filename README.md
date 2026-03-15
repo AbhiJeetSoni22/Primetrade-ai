@@ -1,4 +1,4 @@
-# Backend Developer Assignment – Primetrade.ai
+
 
 ## Project Overview
 
