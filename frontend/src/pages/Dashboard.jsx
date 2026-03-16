@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getTasks, createTask, deleteTask } from "../api/api";
 import TaskForm from "../components/TaskForm";
 import { useNavigate } from "react-router-dom";
+
 function Dashboard() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -31,73 +32,104 @@ function Dashboard() {
   };
 
   const handleLogout = () => {
-      localStorage.removeItem("token");
-      navigate("/");
+    localStorage.removeItem("token");
+    navigate("/");
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-100 to-indigo-200">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-blue-100 to-purple-100">
 
       {/* Header */}
 
-      <div className="max-w-4xl mx-auto flex justify-between items-center p-6">
+      <div className="bg-white shadow-md">
+        <div className="max-w-5xl mx-auto flex justify-between items-center p-5">
+          
+          <div>
+            <h1 className="text-3xl font-bold text-gray-800">
+              Task Dashboard
+            </h1>
+            <p className="text-gray-500 text-sm">
+              Manage your daily tasks efficiently
+            </p>
+          </div>
 
-        <h1 className="text-3xl font-bold text-gray-800">
-          Task Dashboard
-        </h1>
+          <div className="flex items-center gap-4">
 
-        <button
-          onClick={handleLogout}
-          className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
-        >
-          Logout
-        </button>
+            <span className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">
+              {tasks.length} Tasks
+            </span>
 
+            <button
+              onClick={handleLogout}
+              className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition shadow"
+            >
+              Logout
+            </button>
+
+          </div>
+
+        </div>
       </div>
 
-      {/* Main Card */}
+      {/* Main Content */}
 
-      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-6">
+      <div className="max-w-5xl mx-auto p-6">
 
         {/* Task Form */}
 
-        <TaskForm create={handleCreate} />
+        <div className="bg-white rounded-xl shadow-md p-6">
+          <h2 className="text-xl font-semibold text-gray-700 mb-4">
+            Add New Task
+          </h2>
+
+          <TaskForm create={handleCreate} />
+        </div>
 
         {/* Task List */}
 
-        <div className="mt-6 space-y-4">
+        <div className="mt-8">
+
+          <h2 className="text-xl font-semibold text-gray-700 mb-4">
+            Your Tasks
+          </h2>
 
           {tasks.length === 0 && (
-            <p className="text-center text-gray-500">
-              No tasks yet. Add your first task 🚀
-            </p>
+            <div className="text-center bg-white p-6 rounded-xl shadow">
+              <p className="text-gray-500">
+                No tasks yet. Add your first task 🚀
+              </p>
+            </div>
           )}
 
-          {tasks.map((task) => (
-            <div
-              key={task._id}
-              className="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow hover:shadow-md transition"
-            >
+          <div className="grid gap-4">
 
-              <div>
-                <h3 className="font-semibold text-lg text-gray-800">
-                  {task.title}
-                </h3>
-
-                <p className="text-gray-600 text-sm">
-                  {task.description}
-                </p>
-              </div>
-
-              <button
-                onClick={() => handleDelete(task._id)}
-                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+            {tasks.map((task) => (
+              <div
+                key={task._id}
+                className="flex justify-between items-center bg-white p-5 rounded-xl shadow hover:shadow-lg transition"
               >
-                Delete
-              </button>
 
-            </div>
-          ))}
+                <div>
+                  <h3 className="font-semibold text-lg text-gray-800">
+                    {task.title}
+                  </h3>
+
+                  <p className="text-gray-600 text-sm mt-1">
+                    {task.description}
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => handleDelete(task._id)}
+                  className="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 transition font-medium"
+                >
+                  Delete
+                </button>
+
+              </div>
+            ))}
+
+          </div>
 
         </div>
 
