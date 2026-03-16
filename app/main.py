@@ -40,7 +40,3 @@ def dashboard(user=Depends(get_current_user)):
             "role": user["role"]
         }
     }
-
-@app.get("/test")
-def test():
-    return {"message": "test working"}
